@@ -1,0 +1,76 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="fullname">username:</label>
+                <input type="text" id="fullname" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="password">confirm_Password:</label>
+                <input type="password" id="password" name="confirm_password" required>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="register">Register</button>
+                <button type="button" class="cancel">Cancel</button>
+            </div>
+
+    <div>
+    <table border="1"><!-- for the border-->
+        <tr> <!--to add information on heading-->
+            <th>ID</th>
+            <th>Username</th>
+            <th>email</th>
+            <th>Password</th>
+            <th>photo</th>
+            <th>action</th>
+        </tr>
+        {% for i in obj %} <!--loop-->
+
+        <tr>    <!--import from url-->
+            <td>{{i.id}}</td>
+            <td>{{i.username}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.password}}</td>
+            <td><img src="{{i.photo.url}}" height="50px" width="50px"></td>
+            <td>
+                <a href="{% url 'edit_title' i.id %}">update</a><!--update-->
+                <a href="{% url 'delete_title' i.id %}">delete</a><!--delete-->
+            
+            </td>
+
+        </tr>
+        
+        {% endfor %}
+        <!-- Add more rows here if needed -->
+    </table>
+    </div>
+
+   
+
+
+</body>
+</html>
